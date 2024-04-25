@@ -67,6 +67,5 @@ describe('get data with real Axios', () => {
 
     expect(movies.length).toBeGreaterThan(0);
     expect(movies[0].Title).toContain('Star');
-
   });
 });

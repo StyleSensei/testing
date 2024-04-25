@@ -27,14 +27,20 @@ describe('handle submit', () => {
     mockedCreateHtml.mockReset();
   });
 
-  test('it should call createHtml if mocked getData returned movies', async () => {
-
+  test('it should call getData with searchtext value', async () => {
+    let mockedGetData: jest.SpyInstance<Promise<IMovie[]>>;
+    mockedGetData = jest.spyOn(movieService, 'getData');
     await handleSubmit();
-    expect(mockedCreateHtml).toHaveBeenCalled();
-    expect(mockedDisplayNoResult).not.toHaveBeenCalled()
+    expect(mockedGetData).toHaveBeenCalledWith('Nalle Puh');
   });
 
-  test('it should run displayNoResult in else', async () => {
+  test('it should call createHtml if getData returned movies', async () => {
+    await handleSubmit();
+    expect(mockedCreateHtml).toHaveBeenCalled();
+    expect(mockedDisplayNoResult).not.toHaveBeenCalled();
+  });
+
+  test('it should call displayNoResult if no movies found', async () => {
     const movies: IMovie[] = [];
 
     let mockedGetData: jest.SpyInstance<Promise<IMovie[]>>;
@@ -47,23 +53,22 @@ describe('handle submit', () => {
     await handleSubmit();
 
     expect(mockedDisplayNoResult).toHaveBeenCalled();
-    expect(mockedCreateHtml).not.toHaveBeenCalled()
-
+    expect(mockedCreateHtml).not.toHaveBeenCalled();
   });
 
-  test('it should run displayNoResult in catch', async () => {
+  test('it should call displayNoResult in catch', async () => {
     let mockedGetData: jest.SpyInstance<Promise<IMovie[]>>;
     mockedGetData = jest.spyOn(movieService, 'getData');
     mockedGetData.mockImplementation(() => {
       return new Promise((resolve, reject) => {
         resolve;
-        reject('error');
+        reject(new Error('error'));
       });
     });
     await handleSubmit();
 
     expect(mockedDisplayNoResult).toHaveBeenCalled();
-    expect(mockedCreateHtml).not.toHaveBeenCalled()
+    expect(mockedCreateHtml).not.toHaveBeenCalled();
   });
 });
 
