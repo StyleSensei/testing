@@ -1,6 +1,5 @@
 import { IMovie } from '../../models/Movie';
 
-
 const movies: IMovie[] = [
   {
     Title: 'Nalle Puh',
@@ -14,12 +13,12 @@ const movies: IMovie[] = [
     imdbID: '2',
     Poster: 'image-url',
     Type: 'lorem',
-    Year: '1990'
-  }
+    Year: '1990',
+  },
 ];
 
-export const getData = async(): Promise<IMovie[]> => {
-    return new Promise((resolve) => {
-        resolve(movies)
-    })
-}
+export const getData = async (): Promise<IMovie[]> => {
+  return new Promise((resolve) => {
+    resolve(movies);
+  });
+};

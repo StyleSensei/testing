@@ -23,6 +23,8 @@
   },
   "jest" : {
     "preset": "ts-jest",
-    "testEnvironment": "jsdom"
+    "testEnvironment": "jsdom",
+    "collectCoverage": true,
+    "coverageReporters": ["html"]
     }
 }
